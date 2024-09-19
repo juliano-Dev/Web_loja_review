@@ -1,5 +1,6 @@
 package com.web_loja;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.web_loja.domain.Categoria;
+import com.web_loja.domain.Cidade;
+import com.web_loja.domain.Estado;
 import com.web_loja.domain.Produto;
 import com.web_loja.repositories.CategoriaRespository;
+import com.web_loja.repositories.CidadeRespository;
+import com.web_loja.repositories.EstadoRespository;
 import com.web_loja.repositories.ProdutoRespository;
 
 @SpringBootApplication
@@ -20,6 +25,12 @@ public class WebLojaApplication implements CommandLineRunner{
 
 	@Autowired
 	private ProdutoRespository produtoRespository;
+
+	@Autowired
+	private EstadoRespository estadoRepository;
+
+	@Autowired
+	private CidadeRespository cidadeRespository;
 
 	@Autowired
 	public static void main(String[] args) {
@@ -47,6 +58,23 @@ public class WebLojaApplication implements CommandLineRunner{
 
 		categoriaRespository.saveAll(List.of(c1, c2));
 		produtoRespository.saveAll(List.of(p1, p2, p3));
+
+		Estado e1 = new Estado(null, "RS");
+		Estado e2 = new Estado(null, "SC");
+
+		Cidade cid1 = new Cidade(null, "Porto Alegre", e1);
+		Cidade cid2 = new Cidade(null, "Canoas", e1);
+		Cidade cid3 = new Cidade(null, "Floripa", e2);
+		Cidade cid4 = new Cidade(null, "Garopaba", e2);
+
+		e1.getCidades().addAll(Arrays.asList(cid1, cid2));
+		e2.getCidades().addAll(Arrays.asList(cid3, cid4));
+
+		estadoRepository.saveAll(List.of(e1, e2));
+		cidadeRespository.saveAll(List.of(cid1, cid2, cid3, cid4));
+
+
+
 
     }
 
