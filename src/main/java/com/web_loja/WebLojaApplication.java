@@ -10,10 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.web_loja.domain.Categoria;
 import com.web_loja.domain.Cidade;
+import com.web_loja.domain.Cliente;
+import com.web_loja.domain.Endereco;
 import com.web_loja.domain.Estado;
 import com.web_loja.domain.Produto;
+import com.web_loja.domain.enums.TipoCliente;
 import com.web_loja.repositories.CategoriaRespository;
 import com.web_loja.repositories.CidadeRespository;
+import com.web_loja.repositories.ClienteRespository;
+import com.web_loja.repositories.EnderecoRepository;
 import com.web_loja.repositories.EstadoRespository;
 import com.web_loja.repositories.ProdutoRespository;
 
@@ -31,6 +36,16 @@ public class WebLojaApplication implements CommandLineRunner{
 
 	@Autowired
 	private CidadeRespository cidadeRespository;
+
+	@Autowired
+	private ClienteRespository clienteRespository;
+
+	@Autowired
+	private EstadoRespository estadoRespository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
 
 	@Autowired
 	public static void main(String[] args) {
@@ -72,6 +87,24 @@ public class WebLojaApplication implements CommandLineRunner{
 
 		estadoRepository.saveAll(List.of(e1, e2));
 		cidadeRespository.saveAll(List.of(cid1, cid2, cid3, cid4));
+
+		Cliente cliente1 = new Cliente(null, "Novo cliente ", "cliente@cliente", "4234234234234", TipoCliente.PESSOA_FISICA);
+		Cliente cliente2 = new Cliente(null, "Novo cliente2 ", "cliente2@cliente2", "4234234234234", TipoCliente.PESSOA_FISICA);
+		cliente1.getTelefones().addAll(Arrays.asList("123123123", "456456456"));
+		cliente2.getTelefones().addAll(Arrays.asList("222222", "4444444"));
+
+
+		//(Integer id, String logradouro, String numero, String complemento, String bairro, String cep, Cliente cliente, Cidade cidade) {
+
+		Endereco endereco1 = new Endereco(null, "Av. Brasil ", "1000", "CASA ", "São João ",  "91000-000", cliente1, cid1);
+		Endereco endereco2 = new Endereco(null, "Av. Farrapos ", "1000", "CASA ", "Centro ",  "91000-000", cliente2, cid2);
+
+		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+		cliente2.getEnderecos().addAll(Arrays.asList(endereco1));
+
+		clienteRespository.saveAll(List.of(cliente1, cliente2));
+		enderecoRepository.saveAll(List.of(endereco1, endereco2));
+	
 
 
 
