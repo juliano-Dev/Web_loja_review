@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.web_loja.domain.enums.TipoCliente;
 
 import jakarta.annotation.Nonnull;
@@ -36,6 +37,7 @@ public class Cliente implements Serializable{
     
     private Integer tipo;
 
+    @JsonManagedReference
     @OneToMany(mappedBy="cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 

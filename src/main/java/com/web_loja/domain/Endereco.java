@@ -3,6 +3,8 @@ package com.web_loja.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class Endereco implements Serializable{
     @Nonnull
     private String cep;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="cliente_id")
     private Cliente cliente;

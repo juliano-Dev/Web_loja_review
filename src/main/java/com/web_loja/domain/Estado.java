@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,6 +53,8 @@ public class Estado implements Serializable{
     }
      */
 
+    @JsonBackReference
+    @OneToMany(mappedBy="estado")
     public List<Cidade> getCidades() {
         return cidades;
     }

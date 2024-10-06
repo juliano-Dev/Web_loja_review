@@ -3,6 +3,8 @@ package com.web_loja.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +23,7 @@ public class Cidade implements Serializable{
     @Nonnull
     private String nome;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="estado_id")
     private Estado estado; 
